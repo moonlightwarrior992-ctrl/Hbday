@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Tanvi 💜</title>
+
+<style>
+body{
+margin:0;
+overflow:hidden;
+background:#0d001a;
+color:white;
+font-family:'Poppins',sans-serif;
+text-align:center;
+}
+
+/* Overlay */
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+cursor:pointer;
+z-index:1000;
+}
+
+/* Neon Title */
+h1{
+margin-top:10%;
+font-size:60px;
+color:#b266ff;
+text-shadow:0 0 20px #b266ff, 0 0 40px #ff00ff;
+}
+
+/* Cake */
+.cake{
+font-size:100px;
+cursor:pointer;
+transition:0.4s;
+}
+.cake.cut{
+transform:rotate(-15deg) scale(1.2);
+}
+
+/* Equalizer */
+.equalizer{
+display:flex;
+justify-content:center;
+margin-top:20px;
+}
+.bar{
+width:8px;
+margin:2px;
+background:#b266ff;
+animation:equalize 1s infinite ease-in-out;
+}
+@keyframes equalize{
+0%,100%{height:20px;}
+50%{height:80px;}
+}
+
+/* Message */
+.message{
+display:none;
+font-size:26px;
+margin-top:20px;
+animation:fade 2s forwards;
+}
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+.final{
+display:none;
+font-size:65px;
+margin-top:30px;
+color:#ff33cc;
+animation:pop 1s forwards;
+}
+@keyframes pop{
+from{transform:scale(0);}
+to{transform:scale(1);}
+}
+
+</style>
+</head>
+<body>
+
+<div class="overlay" onclick="start()">💜 Tap To Start The Concert 💜</div>
+
+<h1 id="title"></h1>
+
+<div class="cake" id="cake" onclick="cutCake()">🎂</div>
+
+<div class="equalizer" id="eq">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div>
+
+<div class="message" id="loveMsg">
+💖 Dear Tanvi 💖 <br><br>
+May your world shine bright like a BTS stage light ✨ <br>
+Keep smiling always 💜
+</div>
+
+<div class="final" id="final">
+🎉 Happy Birthday Sweetie 🎉
+</div>
+
+<audio id="happy" src="happybirthday.mp3"></audio>
+<audio id="bts" src="boywithluv.mp3"></audio>
+
+<script>
+
+/* Typing Animation */
+let text="🎂 Happy Birthday Tanvi 🎂";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("title").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,70);
+}
+}
+
+/* Fade Out */
+function fadeOut(audio,duration){
+let step=audio.volume/(duration/100);
+let fade=setInterval(()=>{
+if(audio.volume-step>0){
+audio.volume-=step;
+}else{
+audio.pause();
+clearInterval(fade);
+}
+},100);
+}
+
+/* Start */
+function start(){
+document.querySelector(".overlay").style.display="none";
+type();
+
+let happy=document.getElementById("happy");
+let bts=document.getElementById("bts");
+
+happy.play();
+
+setTimeout(()=>{
+fadeOut(happy,2000);
+
+setTimeout(()=>{
+bts.currentTime = 48;   // 🔥 Chorus start (adjust if needed)
+bts.play();
+},2000);
+
+},6000);
+}
+
+/* Cake Cut */
+function cutCake(){
+document.getElementById("cake").classList.add("cut");
+document.getElementById("loveMsg").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("final").style.display="block";
+},5000);
+}
+
+</script>
+
+</body>
+</html>
